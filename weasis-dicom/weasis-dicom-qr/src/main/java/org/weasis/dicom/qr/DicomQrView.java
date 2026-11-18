@@ -946,7 +946,8 @@ public class DicomQrView extends AbstractItemDialogPage implements ImportDicom {
         comboDestinationNode, AbstractDicomNode.Type.WEB, UsageType.RETRIEVE, WebType.QIDORS);
     AbstractDicomNode.restoreNodeSelection(
         getPersistence(), comboDestinationNode.getModel(), LAST_SEL_NODE);
-    String lastType = getPersistence().getProperty(LAST_RETRIEVE_TYPE);
+    // ArcView: C-GET by default, as it needs no AE registration of the workstation on the PACS.
+    String lastType = getPersistence().getProperty(LAST_RETRIEVE_TYPE, RetrieveType.CGET.name());
     if (lastType != null) {
       try {
         comboDicomRetrieveType.setSelectedItem(RetrieveType.valueOf(lastType));
